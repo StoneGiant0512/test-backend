@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const { createTable, createUsersTable } = require('./config/database');
+const { initializeDatabase } = require('./setup/setup');
 const projectRoutes = require('./routes/projectRoutes');
 const authRoutes = require('./routes/authRoutes');
 
@@ -15,11 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Initialize database tables on startup
-createTable()
-  .then(() => createUsersTable())
-  .then(() => {
-    console.log('Database initialized successfully');
-  })
+initializeDatabase()
   .catch((error) => {
     console.error('Error initializing database:', error);
   });

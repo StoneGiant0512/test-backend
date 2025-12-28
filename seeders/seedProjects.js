@@ -1,5 +1,6 @@
 require('dotenv').config();
-const { pool, createTable } = require('../config/database');
+const { pool } = require('../config/database');
+const { createProjectsTable } = require('../setup/setup');
 
 // Dummy project data
 const dummyProjects = [
@@ -118,7 +119,7 @@ const seedDatabase = async () => {
     console.log('Starting database seeding...');
 
     // Create table if it doesn't exist
-    await createTable();
+    await createProjectsTable();
 
     // Clear existing data (optional - comment out if you want to keep existing data)
     await pool.query('TRUNCATE TABLE projects RESTART IDENTITY CASCADE');
