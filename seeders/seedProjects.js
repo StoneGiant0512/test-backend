@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 const { pool } = require('../config/database');
 const { createProjectsTable } = require('../setup/setup');
 

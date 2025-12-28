@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 
 const { initializeDatabase } = require('./setup/setup');
 const projectRoutes = require('./routes/projectRoutes');
