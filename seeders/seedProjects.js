@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: '.env.production'});
 const { pool } = require('../config/database');
 const { createProjectsTable } = require('../setup/setup');
 
@@ -119,6 +119,7 @@ const seedDatabase = async () => {
     console.log('Starting database seeding...');
 
     // Create table if it doesn't exist
+    
     await createProjectsTable();
 
     // Clear existing data (optional - comment out if you want to keep existing data)

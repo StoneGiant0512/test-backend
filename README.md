@@ -49,20 +49,28 @@ backend/
 npm install
 ```
 
-2. Create a `.env` file in the backend directory:
+2. Create a `.env` or `.env.local` file in the backend directory:
 ```env
+# Database Configuration
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=project_dashboard
 DB_USER=postgres
 DB_PASSWORD=your_password_here
 
+# SSL/TLS Configuration (required for cloud databases like AWS RDS, Heroku, etc.)
+DB_SSL=false                    # Set to 'true' to enable SSL
+DB_SSL_REJECT_UNAUTHORIZED=false # Set to 'false' for development, 'true' for production with proper certificates
+
+# Server Configuration
 PORT=5000
 NODE_ENV=development
 
 # JWT Secret (change this to a strong random string in production)
 JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-min-32-chars
 ```
+
+**Note:** For cloud-hosted databases (AWS RDS, Heroku Postgres, etc.), set `DB_SSL=true` to enable SSL/TLS connections.
 
 3. Create the PostgreSQL database:
 ```sql
