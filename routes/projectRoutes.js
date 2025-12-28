@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const projectController = require('../controllers/projectController');
-const { authenticateToken } = require('../middleware/auth');
 
-// Apply authentication middleware to all project routes
-router.use(authenticateToken);
+// Note: Authentication middleware is applied in routes/index.js
 
 /**
  * @route   GET /api/projects

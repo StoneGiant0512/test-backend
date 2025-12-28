@@ -3,8 +3,7 @@ const cors = require('cors');
 require('dotenv').config({ path: '.env.local' });
 
 const { initializeDatabase } = require('./setup/setup');
-const projectRoutes = require('./routes/projectRoutes');
-const authRoutes = require('./routes/authRoutes');
+const routes = require('./routes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -32,11 +31,8 @@ app.get('/', (req, res) => {
   });
 });
 
-// Authentication routes
-app.use('/api/auth', authRoutes);
-
-// Project routes
-app.use('/api/projects', projectRoutes);
+// All API routes (auth middleware handled in routes/index.js)
+app.use('/api', routes);
 
 // 404 handler
 app.use((req, res) => {
