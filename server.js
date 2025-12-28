@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
-const { createTable } = require('./config/database');
+const { createTable, createUsersTable } = require('./config/database');
 const projectRoutes = require('./routes/projectRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,8 +14,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Initialize database table on startup
+// Initialize database tables on startup
 createTable()
+  .then(() => createUsersTable())
   .then(() => {
     console.log('Database initialized successfully');
   })
@@ -28,11 +30,16 @@ app.get('/', (req, res) => {
     message: 'Project Dashboard API',
     version: '1.0.0',
     endpoints: {
+      auth: '/api/auth',
       projects: '/api/projects',
     },
   });
 });
 
+// Authentication routes
+app.use('/api/auth', authRoutes);
+
+// Project routes
 app.use('/api/projects', projectRoutes);
 
 // 404 handler
